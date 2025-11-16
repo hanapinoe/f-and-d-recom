@@ -29,7 +29,7 @@ The project supports inference with fine-tuned models and provides both FastAPI 
 ## Usage
 - **Run FastAPI server:**
   ```
-  uvicorn api.main:app --reload
+  uvicorn api.web_demo_api:app --reload
   ```
 - **Run Streamlit UI:**
   ```
