@@ -1,4 +1,4 @@
-# Food & Drink Recommendation Demo
+# Food & Drink Recommendation Web Demo
 
 ## Overview
 This is a demo project for an AI-powered food and drink recommendation system using LlamaIndex, HuggingFace, and large language models.  
@@ -33,7 +33,7 @@ The project supports inference with fine-tuned models and provides both FastAPI 
   ```
 - **Run Streamlit UI:**
   ```
-  streamlit run ui/app.py
+  streamlit run .\demo\web_demo.py (--server.headless true -> add this prompt if you do not want to auto-start this demo on your browser) 
   ```
 
 ## Notes
@@ -44,5 +44,3 @@ The project supports inference with fine-tuned models and provides both FastAPI 
 MIT
 
 ---
-
-*Feel free to edit this README to better fit your project details!*
