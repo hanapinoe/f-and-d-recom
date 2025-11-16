@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+
 
 os.environ["HF_HOME"] = "E:/study/AIP_capstone/capstone/models/hf_cache"
 os.environ["TRANSFORMERS_CACHE"] = "E:/study/AIP_capstone/capstone/models/hf_cache"
@@ -13,6 +15,7 @@ from src.workflow import FoodRecommendationWorkflow
 from huggingface_hub import login
 
 
+load_dotenv()
 HF_TOKEN = os.getenv("HF_TOKEN")
 login(token=HF_TOKEN)
 

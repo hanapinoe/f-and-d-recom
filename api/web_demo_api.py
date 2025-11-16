@@ -13,19 +13,19 @@ app = FastAPI()
 # Pydantic models for request and response bodies
 class RecommendRequest(BaseModel):
     model_name: str
-    user_input: str
+    user_input: dict  # Change to dict to match process_user_request parameter type
 
 
 class RecommendResponse(BaseModel):
-    parsed_query: dict
+    request: dict
     suggestions: list
 
 
 workflow = None
 
 
-def validate_prompt(prompt: str):
-    if not prompt or not prompt.strip():
+def validate_prompt(prompt: dict):
+    if not prompt or not isinstance(prompt, dict) or not prompt:
         raise HTTPException(
             status_code=400, detail="Bạn cần nhập yêu cầu về đồ ăn/thức uống!"
         )
@@ -40,17 +40,19 @@ def recommend_food(req: RecommendRequest):
         workflow = setup_workflow(model_name_or_path=req.model_name)
         if workflow is None:
             raise HTTPException(status_code=500, detail="Workflow setup failed.")
-    result = workflow.process_user_request(req.user_input)
+    result = workflow.process_user_request(req.user_input)  # Now passing a dict
     if result.get("status") != "success":
         raise HTTPException(
             status_code=500,
             detail=result.get("error", "Lỗi không xác định từ workflow."),
         )
-    parsed_query = result["parsed_query"]
+    user_query = result.get("user_query")
     suggestions = result.get("suggestions")
+    if user_query is None:
+        user_query = {}
     if suggestions is None:
         suggestions = []
-    return RecommendResponse(parsed_query=parsed_query, suggestions=suggestions)
+    return RecommendResponse(request=user_query, suggestions=suggestions)
 
 
 @app.post("/reset")
