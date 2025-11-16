@@ -1,0 +1,16 @@
+models/
+data/
+tests/
+.venv/
+__pycache__/
+*.pyc
+*.log
+*.tmp
+*.bak
+hf_cache/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+.env
+.env.*
+tester.ipynb
